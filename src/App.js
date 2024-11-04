@@ -1,23 +1,25 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useReducer } from "react";
+import { Link, Route, Routes } from "react-router-dom";
+import Home from "./pages/Home";
+import Cart from "./pages/Cart";
+import { initialState, reducer } from "./reducer";
 
 function App() {
+  const [state, dispatch] = useReducer(reducer, initialState);
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <Link to={"/cart"}>to cart</Link>
+      <Routes>
+        <Route
+          index
+          path="/"
+          element={<Home state={state} dispatch={dispatch} />}
+        />
+        <Route
+          path="/cart"
+          element={<Cart state={state} dispatch={dispatch} />}
+        />
+      </Routes>
     </div>
   );
 }
